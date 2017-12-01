@@ -27,8 +27,8 @@ function getVenueData(map) {
   url = "https://api.foursquare.com/v2/venues/search?limit=30&query=vegan&ll=51.513995,-0.109531&client_id=5FIXMYRSCGXJBQFLYVL4Y4U13HSWCZCZBHOFOQCCBMGZYFF4&client_secret=ZQZNB1JUYU0RJPBAG04A0JQTDTMSBKBSFCFCCHB1WDCE52WS&v=20140806&m=foursquare"
   var json = {};
   $.getJSON(url, function(result){
+     isResponseEmpty(result) 
      json = result['response']['venues'] 
-     console.log(json)
      makeResults(json,map)
 /*      var ViewModel = function(json) {
         var self = this;
@@ -41,6 +41,7 @@ function getVenueData(map) {
         }, this);
         console.log(json)
         return json */
+})
 }
 
 
@@ -67,21 +68,35 @@ json.forEach(function(venue) {
       infowindow.open(map, marker);
     });
 
-    isOpen(venue)
+    console.log(isOpen(venue))
 })
 }
 
 /* Iterate through venues and check if they are open*/
 function isOpen(venue){
     url = "https://api.foursquare.com/v2/venues/" + venue['id'] + "?client_id=5FIXMYRSCGXJBQFLYVL4Y4U13HSWCZCZBHOFOQCCBMGZYFF4&client_secret=ZQZNB1JUYU0RJPBAG04A0JQTDTMSBKBSFCFCCHB1WDCE52WS&v=20140806"
-       $.getJSON(url, function(result){
-           if (result['response']['venue']['closed'] == true) {
-               console.log("Closed")
+    var open = ""   
+    $.getJSON(url, function(result){
+        isResponseEmpty(result)
+        console.log(result) 
+        if (result['response']['venue']['hours'] == undefined){
+            open = "Venue hours are unknown"
+        }
+        else if (result['response']['venue']['hours']['isOpen'] == true) {
+            open = "Open"
            }
            else {
-               console.log("Open")
-           }
-       }) 
+            open = "Closed"
+           } 
+       })
+    return open   
+}
+
+/* Alert user if empty json response */
+function isResponseEmpty(result){
+    if (result['response'].length == 0){
+        alert("Empty response")
+    }
 }
 
 
