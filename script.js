@@ -8,10 +8,6 @@ function initMap() {
 
     getVenueData(map)
 
-    var marker = new google.maps.Marker({
-      position: london,
-      map: map
-    });
 }
 
 /* ko.observableArray.fn.contains = function(prop, value) {
@@ -29,7 +25,9 @@ function getVenueData(map) {
   $.getJSON(url, function(result){
      isResponseEmpty(result) 
      json = result['response']['venues'] 
-     makeResults(json,map)
+     json.forEach(function(venue) {
+     isOpen(venue,map)
+    
 /*      var ViewModel = function(json) {
         var self = this;
         json = ko.observableArray();
@@ -41,13 +39,36 @@ function getVenueData(map) {
         }, this);
         console.log(json)
         return json */
-})
+    })
+    })
 }
 
 
-/* Iterate through venues and create markers and infowindow content */
-function makeResults(json, map){
-json.forEach(function(venue) {
+/* Iterate through venues and check if they are open*/
+function isOpen(venue,map){
+    var openImage = 'http://maps.google.com/mapfiles/ms/icons/green-dot.png';
+    var closedImage = "http://maps.google.com/mapfiles/ms/icons/red-dot.png";
+    var unknownImage = "http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+    
+    url = "https://api.foursquare.com/v2/venues/" + venue['id'] + "?client_id=5FIXMYRSCGXJBQFLYVL4Y4U13HSWCZCZBHOFOQCCBMGZYFF4&client_secret=ZQZNB1JUYU0RJPBAG04A0JQTDTMSBKBSFCFCCHB1WDCE52WS&v=20140806"
+    var open = ""   
+    $.getJSON(url, function(result){
+        isResponseEmpty(result)
+        console.log(result) 
+        if (result['response']['venue']['hours'] == undefined){
+            makeResults(venue, map, unknownImage)
+        }
+        else if (result['response']['venue']['hours']['isOpen'] == true) {
+            makeResults(venue, map, openImage)
+           }
+           else {
+            makeResults(venue, map, closedImage)
+           } 
+       })   
+}
+
+/*  Create markers and infowindow content for each venue*/
+function makeResults(venue, map, markerColor){
     var contentString = "<div><a href='https://foursquare.com/v/" + venue['id']+ "'><h4>" + venue['name'] +
     "</h4></a></div>"
 
@@ -61,37 +82,14 @@ json.forEach(function(venue) {
         position: latlng,
         animation: google.maps.Animation.DROP,
         map: map,
-        /* icon: isOpen(json) */
+        icon: markerColor
       });
 
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
 
-    console.log(isOpen(venue))
-})
 }
-
-/* Iterate through venues and check if they are open*/
-function isOpen(venue){
-    url = "https://api.foursquare.com/v2/venues/" + venue['id'] + "?client_id=5FIXMYRSCGXJBQFLYVL4Y4U13HSWCZCZBHOFOQCCBMGZYFF4&client_secret=ZQZNB1JUYU0RJPBAG04A0JQTDTMSBKBSFCFCCHB1WDCE52WS&v=20140806"
-    var open = ""   
-    $.getJSON(url, function(result){
-        isResponseEmpty(result)
-        console.log(result) 
-        if (result['response']['venue']['hours'] == undefined){
-            open = "Venue hours are unknown"
-        }
-        else if (result['response']['venue']['hours']['isOpen'] == true) {
-            open = "Open"
-           }
-           else {
-            open = "Closed"
-           } 
-       })
-    return open   
-}
-
 /* Alert user if empty json response */
 function isResponseEmpty(result){
     if (result['response'].length == 0){
