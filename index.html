@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+    <div class="container">
+            <nav class="navbar navbar-default" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <a id="menu-toggle" href="#" class="navbar-toggle">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                            </a>
+                              <a class="navbar-brand" href="home.xhtml">
+                                  London Vegan Restaurants
+                              </a>
+                        </div>
+                        <div id="sidebar-wrapper" class="sidebar-toggle">
+                                Search:<input data-bind="value:filterVenues , valueUpdate: 'afterkeydown'" /><hr/>
+                                <ul class "side-bar-nav" data-bind="foreach: json.contains('name', filterVenues())">
+                                    <li data-bind="text: last"></li>
+                                </ul>
+                        </div>
+                      </div>
+                </nav>                
+        <div id="map" class="map col-md-12"></div>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCT7Vvkth0PAGlQoKK6P0YJjwuStVKuDXU&callback=initMap" async
+        defer></script>
+</body>
+
+</html>
