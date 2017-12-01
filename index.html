@@ -26,10 +26,14 @@
                               </a>
                         </div>
                         <div id="sidebar-wrapper" class="sidebar-toggle">
-                                Search:<input data-bind="value:filterVenues , valueUpdate: 'afterkeydown'" /><hr/>
-                                <ul class "side-bar-nav" data-bind="foreach: json.contains('name', filterVenues())">
-                                    <li data-bind="text: last"></li>
+                                <input id="search" type="search" name="search" placeholder="Search for a user" data-bind="value: query, valueUpdate: 'keyup'" autocomplete="off" />
+                                
+                                <h4>Search results:</h4>
+                                <div data-bind="visible: json().length > 0">
+                                <ul data-bind="foreach: json" class="list-unstyled">
+                                  <li data-bind="text: name"></li>
                                 </ul>
+                                </div>
                         </div>
                       </div>
                 </nav>                

@@ -8,6 +8,7 @@ function initMap() {
 
     getVenueData(map)
 
+
 }
 
 /* ko.observableArray.fn.contains = function(prop, value) {
@@ -27,19 +28,8 @@ function getVenueData(map) {
      json = result['response']['venues'] 
      json.forEach(function(venue) {
      isOpen(venue,map)
-    
-/*      var ViewModel = function(json) {
-        var self = this;
-        json = ko.observableArray();
-        json['name'] = ko.observable(name)
-        this.filterVenues = ko.observable("");
-    };
-    
-    ko.applyBindings(new ViewModel());
-        }, this);
-        console.log(json)
-        return json */
     })
+    setViewModel(json)
     })
 }
 
@@ -68,7 +58,7 @@ function isOpen(venue,map){
 }
 
 /*  Create markers and infowindow content for each venue*/
-function makeResults(venue, map, markerColor){
+function makeResults(venue, map, markerColor, json){
     var contentString = "<div><a href='https://foursquare.com/v/" + venue['id']+ "'><h4>" + venue['name'] +
     "</h4></a></div>"
 
@@ -88,7 +78,6 @@ function makeResults(venue, map, markerColor){
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
-
 }
 /* Alert user if empty json response */
 function isResponseEmpty(result){
@@ -97,6 +86,29 @@ function isResponseEmpty(result){
     }
 }
 
+/* ViewModel*/
+function setViewModel (json) {
+var viewModel = {
+    json: ko.observableArray([]),
+    query: ko.observable(''),
+  
+    search: function(value) {
+      viewModel.json.removeAll();
+  
+      if (value == '') return;
+  
+      for (var venue in json) {
+        if (json[venue].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
+          viewModel.json.push(json[venue]);
+        }
+      }
+    }
+  };
+  
+  viewModel.query.subscribe(viewModel.search);
+  ko.applyBindings(viewModel);
+
+}
 
 /* Functions for Responsive sidebar */
 $(window).resize(function() {
