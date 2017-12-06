@@ -1,13 +1,13 @@
-#Neighbourhood map Udacity FSND, Project 5
+# Neighbourhood map Udacity FSND, Project 5
 
-##Neighborhood maps is a front end project for Udacity Full Stack Nanodegree.
+## Neighborhood maps is a front end project for Udacity Full Stack Nanodegree.
 
 This single-page-app was completed using javascript, jquery, knockoutJS gulp, scss, google maps API and FourSquare API to display a google map of London with markers pointing to vegan restaurants and features a search bar which filters the restaurants using knockoutJS. 
 
-##Requirements:
+## Requirements:
 node, npm, gulp 
 
-##Instructions to display the app locally
+## Instructions to display the app locally
 1. Clone the project
 2. Install gulp `npm install gulp -g`
 3. Go to the project directory and run `npm install` to install dependencies
