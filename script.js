@@ -12,7 +12,7 @@ function initMap() {
 
 /* Call Foursquare API to search 30 vegan places in London */
 function getVenueData(map) {
-  url = "https://api.foursquare.com/v2/venues/search?limit=30&query=vegan&ll=51.513995,-0.109531&client_id=FOURSQUARE_ID&client_secret=FOURSQUARE_SECRET&m=foursquare"
+  url = "https://api.foursquare.com/v2/venues/search?limit=30&query=vegan&ll=51.513995,-0.109531&client_id=5FIXMYRSCGXJBQFLYVL4Y4U13HSWCZCZBHOFOQCCBMGZYFF4&client_secret=ZQZNB1JUYU0RJPBAG04A0JQTDTMSBKBSFCFCCHB1WDCE52WS&v=20140806&m=foursquare"
   var json = {};
   $.getJSON(url, function(result){
      isResponseEmpty(result) 

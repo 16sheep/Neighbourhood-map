@@ -11,7 +11,7 @@ node, npm, gulp
 1. Clone the project
 2. Install gulp `npm install gulp -g`
 3. Go to the project directory and run `npm install` to install dependencies
-4. [Create google app](https://console.developers.google.com)
+4. [Create google app](https://developers.google.com/maps/documentation/javascript/get-api-key)
 5. Copy the app id to YOUR_GOOGLE_APP_ID at index.html
 6. [Create Foursquare app](https://developer.foursquare.com/)
 8. Replace FOURSQUARE_SECRET and FOURSQUARE_ID with you ID and Secret at script.js
