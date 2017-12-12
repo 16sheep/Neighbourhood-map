@@ -1,4 +1,4 @@
-
+/* Google maps API callback to create map */
 function initMap() {
     var london = {lat: 51.513995, lng: -0.109531};
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -7,16 +7,7 @@ function initMap() {
     });
 
     getVenueData(map)
-
-
 }
-
-/* ko.observableArray.fn.contains = function(prop, value) {
-    var val = ko.utils.unwrapObservable(value).toUpperCase();
-    return ko.utils.arrayFilter(this(), function(item) {
-        return ko.utils.unwrapObservable(item[prop]).toUpperCase().indexOf(val) > -1;
-    });   
-} */
 
 
 /* Call Foursquare API to search 30 vegan places in London */
@@ -74,11 +65,14 @@ function makeResults(venue, map, markerColor, json){
         map: map,
         icon: markerColor
       });
+    console.log(marker)
 
     marker.addListener('click', function() {
       infowindow.open(map, marker);
     });
 }
+
+
 /* Alert user if empty json response */
 function isResponseEmpty(result){
     if (result['response'].length == 0){
@@ -91,7 +85,6 @@ function setViewModel (json) {
 var viewModel = {
     json: ko.observableArray([]),
     query: ko.observable(''),
-  
     search: function(value) {
       viewModel.json.removeAll();
   
@@ -100,6 +93,7 @@ var viewModel = {
       for (var venue in json) {
         if (json[venue].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
           viewModel.json.push(json[venue]);
+
         }
       }
     }
