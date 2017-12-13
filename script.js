@@ -94,30 +94,16 @@ function makeMarkers(venue, map, markerColor, json){
     "</h4></a></div>"
  
     var latlng = {lat : venue['location']['lat'], lng: venue['location']['lng']}
-<<<<<<< HEAD
     var currentpin = new Pin(map, latlng, venue['name'], markerColor, contentString)
     
     
     allPins.push(currentpin)
-=======
-    console.log(latlng)
-    var marker = new google.maps.Marker({
-        position: latlng,
-        animation: google.maps.Animation.DROP,
-        map: map,
-        icon: markerColor
-      });
-    console.log(marker)
->>>>>>> 583ded5d599554aece61363249a5489bceab680d
 
 }
 
 
-<<<<<<< HEAD
 
 
-=======
->>>>>>> 583ded5d599554aece61363249a5489bceab680d
 /* Alert user if empty json response */
 function isResponseEmpty(result){
     if (result['response'].length == 0){
@@ -140,7 +126,6 @@ var viewModel = {
       for (var venue in json) {
         if (json[venue].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
           viewModel.json.push(json[venue]);
-<<<<<<< HEAD
         } 
       }
       console.log(value)
@@ -148,10 +133,6 @@ var viewModel = {
            if (allPins[pin].name.toLowerCase().indexOf(value.toLowerCase()) <  0){
               allPins[pin].isVisible(false)    
          }
-=======
-
-        }
->>>>>>> 583ded5d599554aece61363249a5489bceab680d
       }
     }
   };
