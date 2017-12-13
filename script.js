@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 var allPins = [];
 
  function Pin(map, latlng, name, markerColor, contentString) {
@@ -39,8 +38,6 @@ var allPins = [];
     this.isVisible(true);
 }
 
-=======
->>>>>>> 583ded5d599554aece61363249a5489bceab680d
 /* Google maps API callback to create map */
 function initMap() {
     var london = {lat: 51.513995, lng: -0.109531};
