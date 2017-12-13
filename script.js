@@ -1,3 +1,43 @@
+var allPins = [];
+
+ function Pin(map, latlng, name, markerColor, contentString) {
+    var marker;
+
+    this.name = name;
+    this.latlng = latlng;
+    var infowindow = new google.maps.InfoWindow({
+          content: contentString 
+      });
+
+    marker = new google
+        .maps
+        .Marker({
+            position: new google
+                .maps
+                .LatLng(latlng),
+            icon: markerColor,
+            animation: google.maps.Animation.DROP
+        });
+
+    marker.addListener('click', function() {
+        infowindow.open(map, marker);
+    });
+
+    this.isVisible = ko.observable(false);
+
+    this
+        .isVisible
+        .subscribe(function (currentState) {
+            if (currentState) {
+                marker.setMap(map);
+            } else {
+                marker.setMap(null);
+            }
+        });
+
+    this.isVisible(true);
+}
+
 /* Google maps API callback to create map */
 function initMap() {
     var london = {lat: 51.513995, lng: -0.109531};
@@ -37,40 +77,31 @@ function isOpen(venue,map){
         isResponseEmpty(result)
         console.log(result) 
         if (result['response']['venue']['hours'] == undefined){
-            makeResults(venue, map, unknownImage)
+            makeMarkers(venue, map, unknownImage)
         }
         else if (result['response']['venue']['hours']['isOpen'] == true) {
-            makeResults(venue, map, openImage)
+            makeMarkers(venue, map, openImage)
            }
            else {
-            makeResults(venue, map, closedImage)
+            makeMarkers(venue, map, closedImage)
            } 
-       })   
+       })
 }
 
 /*  Create markers and infowindow content for each venue*/
-function makeResults(venue, map, markerColor, json){
+function makeMarkers(venue, map, markerColor, json){
     var contentString = "<div><a href='https://foursquare.com/v/" + venue['id']+ "'><h4>" + venue['name'] +
     "</h4></a></div>"
-
-    var infowindow = new google.maps.InfoWindow({
-        content: contentString
-      });
  
     var latlng = {lat : venue['location']['lat'], lng: venue['location']['lng']}
-    console.log(latlng)
-    var marker = new google.maps.Marker({
-        position: latlng,
-        animation: google.maps.Animation.DROP,
-        map: map,
-        icon: markerColor
-      });
-    console.log(marker)
+    var currentpin = new Pin(map, latlng, venue['name'], markerColor, contentString)
+    
+    
+    allPins.push(currentpin)
 
-    marker.addListener('click', function() {
-      infowindow.open(map, marker);
-    });
 }
+
+
 
 
 /* Alert user if empty json response */
@@ -80,10 +111,12 @@ function isResponseEmpty(result){
     }
 }
 
+
 /* ViewModel*/
 function setViewModel (json) {
 var viewModel = {
     json: ko.observableArray([]),
+    allPins: ko.observableArray([]),
     query: ko.observable(''),
     search: function(value) {
       viewModel.json.removeAll();
@@ -93,8 +126,13 @@ var viewModel = {
       for (var venue in json) {
         if (json[venue].name.toLowerCase().indexOf(value.toLowerCase()) >= 0) {
           viewModel.json.push(json[venue]);
-
-        }
+        } 
+      }
+      console.log(value)
+      for(var pin in allPins) {
+           if (allPins[pin].name.toLowerCase().indexOf(value.toLowerCase()) <  0){
+              allPins[pin].isVisible(false)    
+         }
       }
     }
   };
