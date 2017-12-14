@@ -11,10 +11,6 @@ body,html, .container, #wrapper, #page-content-wrapper {
     height: 100%;
 }
 
-h1 {
-    color: red;
-}
-
 body {
     overflow-x: hidden;
 }
@@ -30,53 +26,46 @@ body {
 input {
     margin: 15px 0;
     color: #333;
-    box-shadow:0 0 0; 
-	border-color:#ccc;
+    border-color:#ccc;
+    border: none;
+    padding: 5px;
+    width: 100%;
 }
   #sidebar-wrapper {
     top: 52px;
-    left: -200px;
-    width: 200px;
+    left: -300px;
+    width: 300px;
     background-color: #333;
-    color: white;
+    color: whitesmoke;
     position: fixed;
     height: 100%;
     z-index: 1;
     padding: 7px;
   }
-  .sidebar-nav {
-    position: absolute;
-    top: 0;
-    margin: 0;
-    padding: 0;
-    width: 250px;
-    list-style: none;
-  }
-  
   
   li {
-    line-height: 50px;
+    padding : 5px;
+    text-transform: uppercase;
+    font-size: 10px;
   }
-  li a {
-    color: white;
-    display: block;
-    text-decoration: none;
-  }
-  li a:hover {
-    background: rgba(255,255,255,0.25);
-    color: white;
-    text-decoration: none;
-  }
-  li a:active, li a:focus {
-    text-decoration: none;
-  }
+
   #sidebar-wrapper.sidebar-toggle {
     transition: all 0.3s ease-out;
-    margin-left: -200px;
+    margin-left: -300px;
   }
+
+  img {
+    max-width: 38px;
+  }
+
+  .sidebar-toggle a {
+    color:whitesmoke;
+  }
+  
+  /* Media queries */
   @media (min-width: 768px) {
     #sidebar-wrapper.sidebar-toggle {
       transition: 0s;
-      left: 200px;
+      left: 300px;
     }
   }
