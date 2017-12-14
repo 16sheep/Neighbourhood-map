@@ -78,7 +78,7 @@ function getVenueData(map) {
             isOpen(venue, map)
         })
         setViewModel(json)
-    }).fail(function(jqXHR, textStatus, errorThrown) { alert('FourSquare api request failed! ' + errorThrown + '! More info in browser console'); })
+    }).fail(function(errorThrown) { alert('FourSquare api request failed! ' + errorThrown + '! More info in browser console'); })
 }
 
 /* Iterate through venues and check if they are open and call makeMarkers to create markers with colour based on if they are open or not*/
