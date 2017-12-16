@@ -65,6 +65,10 @@ function initMap() {
     getVenueData(map)
 }
 
+// Google maps error handling.
+window.gm_authFailure = function() {
+   alert('Google maps failed to load!');
+}
 /* Call Foursquare API to search 30 vegan places in London */
 function getVenueData(map) {
     url = "https://api.foursquare.com/v2/venues/search?limit=20&query=vegan&ll=51.513995,-0" +
