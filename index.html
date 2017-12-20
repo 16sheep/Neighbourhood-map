@@ -12,7 +12,7 @@
 
 <body>
     <div class="container">
-        <nav class="navbar navbar-default" role="navigation">
+        <nav class="navbar navbar-default">
             <div class="container">
                 <div class="navbar-header">
                     <a id="menu-toggle" href="#" class="navbar-toggle">
@@ -28,24 +28,23 @@
                 <div id="sidebar-wrapper" class="sidebar-toggle">
                     <a href="https://www.foursquare.com">
                         <img src="https://image.flaticon.com/icons/png/128/174/174850.png" alt="Foursquare logo">Fourquare</a>
-                    <input id="search" type="search" name="search" placeholder="Search for a venue" data-bind="value: query, valueUpdate: 'keyup'"
+                    <input id="search" type="search" name="search" placeholder="Search for a venue" data-bind="textInput: query"
                         autocomplete="off" />
 
                     <div>
-                        <ul data-bind="foreach: json" class="list-unstyled">
-                            <li data-bind="text: name"></li>
+                        <ul data-bind="foreach: allPins" class="list-unstyled">
+                            <li data-bind="text: name, click: $parent.showOnMap"></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-        <div id="map" class="map col-md-12" alt="Something went whrong with Google Maps API"></div>
-    </div>
+        <div id="map" class="map col-md-12">Something went whrong with Google Maps API</div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAP_KEY&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=GOOGLE_MAPS_KEY&callback=initMap" async defer></script>
 </body>
 
 </html>

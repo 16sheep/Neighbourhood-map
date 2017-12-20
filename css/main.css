@@ -25,7 +25,14 @@ input {
   padding: 5px;
   width: 100%; }
 
-#sidebar-wrapper {
+li {
+  padding: 5px;
+  /* text-transform: uppercase; */
+  font-size: 10px; }
+
+.sidebar-toggle {
+  transition: all 0.3s ease-out;
+  margin-left: -300px;
   top: 52px;
   left: -300px;
   width: 300px;
@@ -35,15 +42,6 @@ input {
   height: 100%;
   z-index: 1;
   padding: 7px; }
-
-li {
-  padding: 5px;
-  text-transform: uppercase;
-  font-size: 10px; }
-
-#sidebar-wrapper.sidebar-toggle {
-  transition: all 0.3s ease-out;
-  margin-left: -300px; }
 
 img {
   max-width: 38px; }
