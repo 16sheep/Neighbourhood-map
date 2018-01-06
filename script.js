@@ -21,6 +21,7 @@ function Pin(map, latlng, name, markerColor, contentString) {
 
     marker.addListener('click', function () {
         infowindow.open(map, marker);
+        setAnimation(marker);
     });
 
     function setAnimation(marker) {
