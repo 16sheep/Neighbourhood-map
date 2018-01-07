@@ -1,6 +1,6 @@
-const gulp = require('gulp')
-const sass = require('gulp-sass')
-const browserSync = require('browser-sync').create()
+const gulp = require('gulp');
+const sass = require('gulp-sass');
+const browserSync = require('browser-sync').create();
 
 
 //Lint JS
@@ -24,11 +24,11 @@ gulp.task('serve', function () {
     server: {
       baseDir:'./'
     }
-  })
+  });
   gulp.watch('./scss/*.scss',['sass']);
-  gulp.watch('./**/*.html').on('change', browserSync.reload({stream: true}))
-})
+  gulp.watch('./**/*.html').on('change', browserSync.reload({stream: true}));
+});
 
-gulp.task('default',['sass','serve'])
+gulp.task('default',['sass','serve']);
 
 
